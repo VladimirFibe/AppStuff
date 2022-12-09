@@ -88,8 +88,9 @@ struct RideRequestView: View {
             }
 
         }
-        .padding(.horizontal)
+        .padding()
         .background(Color.white)
+        .cornerRadius(20)
     }
 }
 

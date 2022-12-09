@@ -2,7 +2,19 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var mapState = MapViewState.noInput
+    
     var body: some View {
+        ZStack(alignment: .bottom) {
+            content
+            
+            if mapState == .locationSelected {
+                RideRequestView()
+                    .transition(.move(edge: .bottom))
+            }
+        }
+        .ignoresSafeArea()
+    }
+    var content: some View {
         ZStack(alignment: .top) {
             UberMapViewRepresentable(mapState: $mapState)
                 .ignoresSafeArea()
@@ -29,5 +41,6 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(LocationSearchViewModel())
     }
 }
