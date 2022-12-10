@@ -1,8 +1,14 @@
 import CoreLocation
 
 final class LocationManager: NSObject, ObservableObject {
+    
+    static let shared = LocationManager()
+    
     private let locationManager = CLLocationManager()
-    override init() {
+    
+    @Published var userLocation: CLLocationCoordinate2D?
+    
+    private override init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -13,7 +19,8 @@ final class LocationManager: NSObject, ObservableObject {
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard !locations.isEmpty else { return }
+        guard let location = locations.first else { return }
+        self.userLocation = location.coordinate
         locationManager.stopUpdatingLocation()
     }
 }

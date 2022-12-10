@@ -3,7 +3,6 @@ import MapKit
 
 struct UberMapViewRepresentable: UIViewRepresentable {
     let mapView = MKMapView()
-    let locationManager = LocationManager()
     @Binding var mapState: MapViewState
     @EnvironmentObject var locationViewModel: LocationSearchViewModel
     
@@ -93,8 +92,8 @@ extension UberMapViewRepresentable {
             getDestinationRoute(from: userLocationCoordinate,
                                 to: coordinate) { route in
                 self.parent.mapView.addOverlay(route.polyline)
-                let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect, edgePadding: .init(top: 64, left: 32, bottom: 32, right: 500))
-                
+                let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect, edgePadding: .init(top: 64, left: 32, bottom: 500, right: 32))
+                print(rect)
                 self.parent.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
         }
