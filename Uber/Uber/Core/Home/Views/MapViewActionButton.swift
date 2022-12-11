@@ -9,7 +9,7 @@ struct MapViewActionButton: View {
                 actionForState(mapState)
             }
         } label: {
-            Image(systemName: mapState == .noInput ? "line.3.horizontal" : "arrow.left")
+            Image(systemName: imageNameForState(mapState))
                 .font(.title2)
                 .foregroundColor(.black)
                 .padding()
@@ -26,9 +26,16 @@ struct MapViewActionButton: View {
             print("DEBUG: no input")
         case .searchingForLocation:
             mapState = .noInput
-        case .locationSelected:
+        default:
             mapState = .noInput
-            viewModel.selectedLocationCoordinate = nil
+            viewModel.selectedUberLocation = nil
+        }
+    }
+    
+    func imageNameForState(_ state: MapViewState) -> String {
+        switch state {
+        case .noInput: return "line.3.horizontal"
+        default: return "arrow.left"
         }
     }
 }

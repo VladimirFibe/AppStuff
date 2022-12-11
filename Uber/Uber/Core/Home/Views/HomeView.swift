@@ -7,7 +7,7 @@ struct HomeView: View {
         ZStack(alignment: .bottom) {
             content
             
-            if mapState == .locationSelected {
+            if mapState == .locationSelected || mapState == .polylineAdded {
                 RideRequestView()
                     .transition(.move(edge: .bottom))
             }
