@@ -10,7 +10,6 @@ struct ContentView: View {
                     CoinRowView(coin: coin)
                         .onAppear {
                             if coin.id == viewModel.coins.last?.id {
-                                print(viewModel.urlString)
                                 viewModel.loadData()
                             }
                         }
